@@ -50,3 +50,5 @@ STOPSIGNAL SIGWINCH
 # Final touches
 EXPOSE 80
 CMD ["bash", "/entrypoint.sh"]
+
+USER www-data
