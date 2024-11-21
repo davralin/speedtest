@@ -42,13 +42,16 @@ ENV PASSWORD=password
 ENV TELEMETRY=false
 ENV ENABLE_ID_OBFUSCATION=false
 ENV REDACT_IP_ADDRESSES=false
-ENV WEBPORT=80
 
 # https://httpd.apache.org/docs/2.4/stopping.html#gracefulstop
 STOPSIGNAL SIGWINCH
 
+
+RUN sed -i "s/^Listen 80\$/Listen 8080/g" /etc/apache2/ports.conf \
+    sed -i "s/*:80>/*:8080>/g" /etc/apache2/sites-available/000-default.conf
+
 # Final touches
-EXPOSE 80
+EXPOSE 8080
 CMD ["bash", "/entrypoint.sh"]
 
 USER www-data
